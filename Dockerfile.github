@@ -16,6 +16,13 @@ RUN wget -q https://github.com/PowerShell/PowerShell/releases/download/v7.4.1/po
 RUN dpkg -i powershell_7.4.1-1.deb_amd64.deb
 RUN apt-get install -f
 
+#Install terraform
+RUN wget --quiet https://releases.hashicorp.com/terraform/0.11.3/terraform_0.11.3_linux_amd64.zip \
+  && unzip terraform_0.11.3_linux_amd64.zip \
+  && mv terraform /usr/bin \
+  && rm terraform_0.11.3_linux_amd64.zip
+
+#Start the runner
 COPY github-actions-runner/entrypoint.sh ./entrypoint.sh
 RUN chmod +x ./entrypoint.sh
 
